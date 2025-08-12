@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import java.util.Set;
 
 @Component
-class UserNumberValidator {
+public class UserNumberValidator {
     private static final Integer MIN_NUMBER = 1 ;
     private static final Integer MAX_NUMBER = 99;
     private static final Integer AMOUNT_OF_NUMBERS = 6;
