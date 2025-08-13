@@ -2,7 +2,6 @@ package com.lotto.domain.numbergenerator;
 
 import com.lotto.domain.numberrceiver.DrawDateGenerator;
 import com.lotto.infrastructure.http.numbergenerator.NumberGeneratorFetcher;
-import lombok.RequiredArgsConstructor;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
@@ -11,17 +10,23 @@ import java.time.ZoneOffset;
 import java.util.Set;
 import java.util.UUID;
 
-@RequiredArgsConstructor
 public class NumberGeneratorFacade {
     Clock clock = Clock.fixed(
             LocalDateTime.of(2025, 5, 21, 12, 0, 0)
                     .toInstant(ZoneOffset.UTC),
             ZoneId.systemDefault()
     );
-    private  NumberGeneratorFetcher numberGeneratorFetcher = new NumberGeneratorFetcher();
-    private  DrawDateGenerator drawDateGenerator = new DrawDateGenerator(clock);
-    private  WinningNumbersValidator winningNumbersValidator = new WinningNumbersValidator();
-    private  NumberGeneratorRepository numberGeneratorRepository;
+    private final NumberGeneratorFetcher numberGeneratorFetcher;
+    private final DrawDateGenerator drawDateGenerator;
+    private final WinningNumbersValidator winningNumbersValidator;
+    private final NumberGeneratorRepository numberGeneratorRepository;
+
+    public NumberGeneratorFacade(NumberGeneratorFetcher numberGeneratorFetcher, DrawDateGenerator drawDateGenerator, WinningNumbersValidator winningNumbersValidator, NumberGeneratorRepository numberGeneratorRepository) {
+        this.numberGeneratorFetcher = numberGeneratorFetcher;
+        this.drawDateGenerator = drawDateGenerator;
+        this.winningNumbersValidator = winningNumbersValidator;
+        this.numberGeneratorRepository = numberGeneratorRepository;
+    }
 
     public WinningNumbers generateWinningNumbers() {
         String id = UUID.randomUUID().toString();
