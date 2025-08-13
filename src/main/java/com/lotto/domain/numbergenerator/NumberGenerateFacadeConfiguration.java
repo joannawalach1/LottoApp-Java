@@ -1,6 +1,7 @@
 package com.lotto.domain.numbergenerator;
 
 import com.lotto.domain.numberrceiver.DrawDateGenerator;
+import com.lotto.domain.numberrceiver.NumberReceiverFacade;
 import com.lotto.infrastructure.http.numbergenerator.NumberGeneratorFetcher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,14 +21,14 @@ public class NumberGenerateFacadeConfiguration {
     );
 
     @Bean
-    public NumberGeneratorFacade numberGeneratorFacade(NumberGeneratorFetcher numberGeneratorFetcher, NumberGeneratorRepository numberGeneratorRepository) {
+    public NumberGeneratorFacade numberGeneratorFacade(NumberGeneratorFetcher numberGeneratorFetcher, NumberGeneratorRepository numberGeneratorRepository, NumberReceiverFacade numberReceiverFacade) {
         DrawDateGenerator drawDateGenerator = new DrawDateGenerator(clock);
         WinningNumbersValidator winningNumbersValidator = new WinningNumbersValidator();
         return new NumberGeneratorFacade(
                 numberGeneratorFetcher,
                 drawDateGenerator,
                 winningNumbersValidator,
-                numberGeneratorRepository
-        );
+                numberGeneratorRepository,
+                numberReceiverFacade);
     }
 }

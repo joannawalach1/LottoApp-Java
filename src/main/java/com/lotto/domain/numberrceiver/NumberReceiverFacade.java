@@ -35,4 +35,9 @@ public class NumberReceiverFacade {
         TicketDto ticketDto = ticketMapper.toDto(newTicket);
         return newTicket;
     }
+
+    public LocalDateTime getNextDrawDate() {
+        LocalDateTime dateTime = drawDateGenerator.nextDrawDate(LocalDateTime.now(clock));
+        return dateTime;
+    }
 }
