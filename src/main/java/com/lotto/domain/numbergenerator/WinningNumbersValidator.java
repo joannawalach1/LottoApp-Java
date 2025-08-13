@@ -15,7 +15,7 @@ public class WinningNumbersValidator {
                 .filter(number -> number >= MIN_NUMBER)
                 .filter(number -> number <= MAX_NUMBER)
                 .count() != AMOUNT_OF_NUMBERS) {
-            throw new InvalidDataException("Incorrect number or range of numbers.");
+            throw new NotValidDataException("Incorrect number or range of numbers.");
         }
     }
 }
