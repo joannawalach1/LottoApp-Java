@@ -1,6 +1,7 @@
 package com.lotto.domain.numbergenerator;
 
 import com.lotto.domain.numberrceiver.DrawDateGenerator;
+import com.lotto.domain.numberrceiver.NumberReceiverFacade;
 import com.lotto.infrastructure.http.numbergenerator.NumberGeneratorFetcher;
 
 import java.time.Clock;
@@ -20,17 +21,19 @@ public class NumberGeneratorFacade {
     private final DrawDateGenerator drawDateGenerator;
     private final WinningNumbersValidator winningNumbersValidator;
     private final NumberGeneratorRepository numberGeneratorRepository;
+    private final NumberReceiverFacade numberReceiverFacade;
 
-    public NumberGeneratorFacade(NumberGeneratorFetcher numberGeneratorFetcher, DrawDateGenerator drawDateGenerator, WinningNumbersValidator winningNumbersValidator, NumberGeneratorRepository numberGeneratorRepository) {
+    public NumberGeneratorFacade(NumberGeneratorFetcher numberGeneratorFetcher, DrawDateGenerator drawDateGenerator, WinningNumbersValidator winningNumbersValidator, NumberGeneratorRepository numberGeneratorRepository, NumberReceiverFacade numberReceiverFacade) {
         this.numberGeneratorFetcher = numberGeneratorFetcher;
         this.drawDateGenerator = drawDateGenerator;
         this.winningNumbersValidator = winningNumbersValidator;
         this.numberGeneratorRepository = numberGeneratorRepository;
+        this.numberReceiverFacade = numberReceiverFacade;
     }
 
     public WinningNumbers generateWinningNumbers() {
+        LocalDateTime nextDrawDate = numberReceiverFacade.getNextDrawDate();
         String id = UUID.randomUUID().toString();
-        LocalDateTime nextDrawDate = drawDateGenerator.nextDrawDate(LocalDateTime.now());
         Set<Integer> generatedNumbers = numberGeneratorFetcher.fetchNumbers();
         winningNumbersValidator.validateNumbers(generatedNumbers);
         WinningNumbers winningNumbers = new WinningNumbers(id, nextDrawDate, generatedNumbers);

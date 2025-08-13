@@ -1,15 +1,14 @@
 package com.lotto.domain.numbergenerator;
 
 import com.lotto.domain.numberrceiver.DrawDateGenerator;
+import com.lotto.domain.numberrceiver.NumberReceiverFacade;
 import com.lotto.infrastructure.http.numbergenerator.NumberGeneratorFetcher;
 import org.junit.jupiter.api.Test;
-import org.springframework.web.client.RestTemplate;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
-import java.util.Optional;
 import java.util.Set;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -25,13 +24,13 @@ class NumberGeneratorFacadeTest {
 
     NumberGeneratorFetcher numberGeneratorFetcher = mock(NumberGeneratorFetcher.class);
     InMemoryNumberGeneratorRepository inMemoryNumberGeneratorRepository = new InMemoryNumberGeneratorRepository();
-
+    NumberReceiverFacade numberReceiverFacade = mock(NumberReceiverFacade.class);
     NumberGeneratorFacade numberGeneratorFacade = new NumberGeneratorFacade(
             numberGeneratorFetcher,
             new DrawDateGenerator(clock),
             new WinningNumbersValidator(),
-            inMemoryNumberGeneratorRepository
-    );
+            inMemoryNumberGeneratorRepository,
+            numberReceiverFacade);
 
     @Test
     void should_return_six_winning_numbers() {
