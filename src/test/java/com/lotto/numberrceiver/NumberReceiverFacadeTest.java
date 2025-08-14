@@ -1,6 +1,7 @@
 package com.lotto.numberrceiver;
 
 import com.lotto.domain.numberrceiver.*;
+import com.lotto.domain.numberrceiver.dto.TicketDto;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
@@ -30,7 +31,7 @@ class NumberReceiverFacadeTest {
         //given
         Set<Integer> userNumbers = Set.of(1, 2, 3, 4, 5, 6);
         //when
-        Ticket result = numberReceiverFacade.getNumbersFromUser(userNumbers);
+        TicketDto result = numberReceiverFacade.getNumbersFromUser(userNumbers);
         //then
         assertEquals(result.userNumbers().size(), userNumbers.size());
     }

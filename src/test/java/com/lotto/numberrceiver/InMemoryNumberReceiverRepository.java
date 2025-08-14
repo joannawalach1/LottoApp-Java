@@ -2,12 +2,14 @@ package com.lotto.numberrceiver;
 
 import com.lotto.domain.numberrceiver.NumberReceiverRepository;
 import com.lotto.domain.numberrceiver.Ticket;
+import com.lotto.domain.numberrceiver.dto.TicketDto;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -130,6 +132,11 @@ public class InMemoryNumberReceiverRepository implements NumberReceiverRepositor
 
     @Override
     public <S extends Ticket, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
+        return null;
+    }
+
+    @Override
+    public List<TicketDto> findTicketsByTicketCreatedAt(LocalDateTime now) {
         return null;
     }
 }

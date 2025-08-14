@@ -18,6 +18,7 @@ public class NumberGenerateFacadeConfiguration {
                     .toInstant(ZoneOffset.UTC),
             ZoneId.systemDefault()
     );
+    private WinningNumbersMapper winningNumberMapper;
 
     @Bean
     public NumberGeneratorFacade numberGeneratorFacade(NumberGeneratorFetcher numberGeneratorFetcher, NumberGeneratorRepository numberGeneratorRepository) {
@@ -27,7 +28,7 @@ public class NumberGenerateFacadeConfiguration {
                 numberGeneratorFetcher,
                 drawDateGenerator,
                 winningNumbersValidator,
-                numberGeneratorRepository
-        );
+                numberGeneratorRepository,
+                winningNumberMapper);
     }
 }
