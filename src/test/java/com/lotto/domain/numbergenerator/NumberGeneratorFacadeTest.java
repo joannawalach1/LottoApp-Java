@@ -1,15 +1,15 @@
 package com.lotto.domain.numbergenerator;
 
+import com.lotto.domain.numbergenerator.dto.WinningNumbersDto;
 import com.lotto.domain.numberrceiver.DrawDateGenerator;
 import com.lotto.infrastructure.http.numbergenerator.NumberGeneratorFetcher;
 import org.junit.jupiter.api.Test;
-import org.springframework.web.client.RestTemplate;
+import org.mapstruct.factory.Mappers;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
-import java.util.Optional;
 import java.util.Set;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -25,18 +25,18 @@ class NumberGeneratorFacadeTest {
 
     NumberGeneratorFetcher numberGeneratorFetcher = mock(NumberGeneratorFetcher.class);
     InMemoryNumberGeneratorRepository inMemoryNumberGeneratorRepository = new InMemoryNumberGeneratorRepository();
-
+    WinningNumbersMapper winningNumberMapper = Mappers.getMapper(WinningNumbersMapper.class);
     NumberGeneratorFacade numberGeneratorFacade = new NumberGeneratorFacade(
             numberGeneratorFetcher,
             new DrawDateGenerator(clock),
             new WinningNumbersValidator(),
-            inMemoryNumberGeneratorRepository
-    );
+            inMemoryNumberGeneratorRepository,
+            winningNumberMapper);
 
     @Test
     void should_return_six_winning_numbers() {
         when(numberGeneratorFetcher.fetchNumbers()).thenReturn(Set.of(1, 2, 3, 4, 5, 6));
-        WinningNumbers winningNumbers = numberGeneratorFacade.generateWinningNumbers();
+        WinningNumbersDto winningNumbers = numberGeneratorFacade.generateWinningNumbers();
         assertThat(winningNumbers.winningNumbers().size()).isEqualTo(6);
     }
 

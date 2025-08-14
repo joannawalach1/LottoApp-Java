@@ -6,6 +6,7 @@ import com.lotto.domain.numberrceiver.dto.TicketDto;
 import java.time.Clock;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 public class NumberReceiverFacade {
@@ -26,13 +27,18 @@ public class NumberReceiverFacade {
     }
 
 
-    public Ticket getNumbersFromUser(Set<Integer> userNumbers) {
+    public TicketDto getNumbersFromUser(Set<Integer> userNumbers) {
         userNumberValidator.validateNumbers(userNumbers);
         String id = hashGenerable.generateHash();
         LocalDateTime ticketCreatedAt = LocalDateTime.now();
         Ticket newTicket = new Ticket(id, userNumbers, ticketCreatedAt);
         numberReceiverRepository.save(newTicket);
         TicketDto ticketDto = ticketMapper.toDto(newTicket);
-        return newTicket;
+        return ticketDto;
+    }
+
+    public List<TicketDto> getTicketsByNextDrawDate(LocalDateTime currentDay) {
+        LocalDateTime nextDrawDate = drawDateGenerator.nextDrawDate(currentDay);
+        return numberReceiverRepository.findTicketsByTicketCreatedAt(nextDrawDate);
     }
 }

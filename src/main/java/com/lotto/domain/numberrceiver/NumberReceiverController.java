@@ -1,5 +1,6 @@
 package com.lotto.domain.numberrceiver;
 
+import com.lotto.domain.numberrceiver.dto.TicketDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,8 +20,8 @@ public class NumberReceiverController {
     }
 
     @PostMapping
-    public ResponseEntity<Ticket> inputUserNumbers(@RequestBody Set<Integer> userNumbers) {
-        Ticket numbersFromUser = numberReceiverFacade.getNumbersFromUser(userNumbers);
+    public ResponseEntity<TicketDto> inputUserNumbers(@RequestBody Set<Integer> userNumbers) {
+        TicketDto numbersFromUser = numberReceiverFacade.getNumbersFromUser(userNumbers);
         return ResponseEntity.status(HttpStatus.OK).body(numbersFromUser);
     }
 }
