@@ -47,8 +47,8 @@ public class ResultCheckerFacadeTest {
     void should_generate_winners_and_save_players() {
         List<TicketDto> ticketDtos = List.of(new TicketDto("1id", Set.of(1,2,3,4,5,6), LocalDateTime.now(clock)));
         List<Ticket> tickets = List.of(new Ticket("1id", Set.of(1,2,3,4,5,6), LocalDateTime.now(clock)));
-        WinningNumbersDto winningNumbersDto = new WinningNumbersDto(Set.of(1,2,3,4,5,6));
-        List<Players> expectedPlayers = List.of(new Players("1id", Set.of(1,2,3,4,5,6), Set.of(1,2,3,4,5,6), LocalDateTime.now(clock), true));
+        WinningNumbersDto winningNumbersDto = new WinningNumbersDto(Set.of(1,2,3));
+        List<Players> expectedPlayers = List.of(new Players("1id", Set.of(1,2,3,4,5,6), Set.of(1,2,3), LocalDateTime.now(clock), true));
         when(numberReceiverFacade.getTicketsByNextDrawDate(any())).thenReturn(ticketDtos);
         when(numberGeneratorFacade.generateWinningNumbers()).thenReturn(winningNumbersDto);
         List<Players> result = resultCheckerFacade.generateWinners();
