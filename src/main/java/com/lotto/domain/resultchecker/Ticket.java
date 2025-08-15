@@ -6,9 +6,6 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @Builder
-record Ticket(
-        String hash,
-        Set<Integer> numbers,
-        LocalDateTime drawDate
+record Ticket(String id, Set<Integer> userNumbers, LocalDateTime ticketCreatedAt
 ) {
 }

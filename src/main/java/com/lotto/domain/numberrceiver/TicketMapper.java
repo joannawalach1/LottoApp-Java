@@ -10,4 +10,8 @@ import java.util.List;
 public interface TicketMapper {
     List<Ticket> toDtos(List<TicketDto> ticket);
     TicketDto toDto(Ticket ticket);
+    default Ticket map(TicketDto dto) {
+        return new Ticket(dto.id(), dto.userNumbers(), dto.ticketCreatedAt());
+    }
+
 }

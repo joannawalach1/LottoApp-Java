@@ -17,19 +17,20 @@ public class ResultCheckerFacade {
     private final PlayerRepository playerRepository;
     private final NumberGeneratorFacade numberGeneratorFacade;
     private final WinnersRetriever winnerRetriever;
-    private final  TicketMapper ticketMapper;
+    private final  WinnersMapper winnersMapper;
 
-    public ResultCheckerFacade(NumberReceiverFacade numberReceiverFacade, PlayerRepository playerRepository, NumberGeneratorFacade numberGeneratorFacade, WinnersRetriever winnerRetriever, TicketMapper ticketMapper) {
+    public ResultCheckerFacade(NumberReceiverFacade numberReceiverFacade, PlayerRepository playerRepository, NumberGeneratorFacade numberGeneratorFacade, WinnersRetriever winnerRetriever, WinnersMapper winnersMapper) {
         this.numberReceiverFacade = numberReceiverFacade;
         this.playerRepository = playerRepository;
         this.numberGeneratorFacade = numberGeneratorFacade;
         this.winnerRetriever = winnerRetriever;
-        this.ticketMapper = ticketMapper;
+        this.winnersMapper = winnersMapper;
     }
+
 
     public List<Players> generateWinners() {
         List<TicketDto> ticketsByNextDrawDate = numberReceiverFacade.getTicketsByNextDrawDate(LocalDateTime.now());
-        List<Ticket> tickets = ticketMapper.toDtos(ticketsByNextDrawDate);
+        List<Ticket> tickets = winnersMapper.toDtos(ticketsByNextDrawDate);
         WinningNumbersDto winningNumbersDto = numberGeneratorFacade.generateWinningNumbers();
         Set<Integer> winningNumbers = winningNumbersDto.winningNumbers();
         List<Players> players = winnerRetriever.calculateWinners(tickets, winningNumbers);

@@ -15,9 +15,15 @@ public class WinnersRetriever {
             ticketNumbers.retainAll(winningNumbers);
             int matches = ticketNumbers.size();
             if (matches >= 3) {
-                winners.add(winners.get(0));
+                Players player = new Players(
+                        ticket.id(),
+                        ticket.userNumbers(),
+                        ticketNumbers,
+                        ticket.ticketCreatedAt(),
+                        true
+                );
+                winners.add(player);
             }
-
         }
         return winners;
     }
