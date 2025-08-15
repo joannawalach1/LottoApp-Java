@@ -4,15 +4,17 @@ import com.lotto.domain.numbergenerator.NumberGeneratorFacade;
 import com.lotto.domain.numbergenerator.dto.WinningNumbersDto;
 import com.lotto.domain.numberrceiver.NumberReceiverFacade;
 import com.lotto.domain.numberrceiver.Ticket;
-import com.lotto.domain.numberrceiver.TicketMapper;
 import com.lotto.domain.numberrceiver.dto.TicketDto;
 import com.lotto.domain.resultchecker.dto.ResultDto;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
-
 public class ResultCheckerFacade {
+    private static final Logger log = LoggerFactory.getLogger(ResultCheckerFacade.class);
     private final NumberReceiverFacade numberReceiverFacade;
     private final PlayerRepository playerRepository;
     private final NumberGeneratorFacade numberGeneratorFacade;
@@ -34,6 +36,7 @@ public class ResultCheckerFacade {
         WinningNumbersDto winningNumbersDto = numberGeneratorFacade.generateWinningNumbers();
         Set<Integer> winningNumbers = winningNumbersDto.winningNumbers();
         List<Players> players = winnerRetriever.calculateWinners(tickets, winningNumbers);
+        log.info(players.toString());
         playerRepository.saveAll(players);
         return players;
     }
