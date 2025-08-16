@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface TicketMapper {
     List<Ticket> toDtos(List<TicketDto> ticket);
     TicketDto toDto(Ticket ticket);
