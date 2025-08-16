@@ -56,7 +56,7 @@ public class ResultAnnouncerFacade {
                 : new ResultAnnouncerResponseDto(responseDto, LOSE_MESSAGE.info);
     }
 
-    private static ResultResponse buildResponse(ResponseDto responseDto) {
+    private ResultResponse buildResponse(ResponseDto responseDto) {
         return ResultResponse.builder()
                 .hash(responseDto.hash())
                 .numbers(responseDto.numbers())
@@ -66,7 +66,7 @@ public class ResultAnnouncerFacade {
                 .build();
     }
 
-    private static ResponseDto buildResponseDto(ResultDto resultDto) {
+    private ResponseDto buildResponseDto(ResultDto resultDto) {
         return ResponseDto.builder()
                 .hash(resultDto.hash())
                 .numbers(resultDto.numbers())
@@ -77,10 +77,7 @@ public class ResultAnnouncerFacade {
     }
 
     private boolean isAfterResultAnnouncementTime(ResultDto resultDto) {
-        LocalDateTime announcementDateTime = LocalDateTime.of(
-                resultDto.drawDate().toLocalDate(),
-                RESULTS_ANNOUNCEMENT_TIME
-        );
+        LocalDateTime announcementDateTime = LocalDateTime.of(resultDto.drawDate().toLocalDate(), RESULTS_ANNOUNCEMENT_TIME); //
         return LocalDateTime.now(clock).isAfter(announcementDateTime);
     }
 }

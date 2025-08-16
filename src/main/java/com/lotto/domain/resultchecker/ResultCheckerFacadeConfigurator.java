@@ -3,9 +3,10 @@ package com.lotto.domain.resultchecker;
 import com.lotto.domain.numbergenerator.NumberGeneratorFacade;
 import com.lotto.domain.numberrceiver.*;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import java.time.Clock;
-
+@Configuration
 public class ResultCheckerFacadeConfigurator {
     private NumberReceiverRepository numberReceiverRepository;
     private NumberGeneratorFacade numberGeneratorFacade;
