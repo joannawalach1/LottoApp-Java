@@ -5,9 +5,10 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.Optional;
 
 public interface ResultAnnouncerRepository extends MongoRepository<ResultResponse, String> {
-    Optional<ResultResponse> findByHash(String hash);
+    ResultResponse findByHash(String hash);
+
+    ResultResponse findByAnId(String id);
 
     boolean existsById(String hash);
 
-    Optional<ResultResponse> findById(String hash);
 }
