@@ -2,7 +2,6 @@ package com.lotto.resultannouncer;
 
 import com.lotto.domain.resultannouncer.ResultAnnouncerRepository;
 import com.lotto.domain.resultannouncer.ResultResponse;
-import com.lotto.domain.resultchecker.Players;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,9 +17,10 @@ import java.util.function.Function;
 public class InMemoryResultAnnouncerRepository implements ResultAnnouncerRepository {
     private final Map<String, ResultResponse> players = new HashMap<>();
 
+
     @Override
-    public Optional<ResultResponse> findByHash(String hash) {
-        return Optional.empty();
+    public ResultResponse findByHash(String hash) {
+        return null;
     }
 
     @Override
@@ -29,19 +29,23 @@ public class InMemoryResultAnnouncerRepository implements ResultAnnouncerReposit
     }
 
     @Override
-    public Optional<ResultResponse> findById(String hash) {
-        return Optional.empty();
-    }
-
-    @Override
     public <S extends ResultResponse> S save(S entity) {
-        players.put(entity.hash(), entity);
-        return entity;
+        return null;
     }
 
     @Override
     public <S extends ResultResponse> List<S> saveAll(Iterable<S> entities) {
         return null;
+    }
+
+    @Override
+    public Optional<ResultResponse> findById(String s) {
+        return Optional.empty();
+    }
+
+    @Override
+    public ResultResponse findByAnId(String s) {
+        return players.get(s);
     }
 
     @Override
